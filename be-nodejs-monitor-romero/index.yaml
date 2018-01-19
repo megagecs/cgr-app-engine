@@ -1,0 +1,21 @@
+indexes:
+
+- kind: Auditoria
+  properties:
+  - name: msgId
+  - name: fechaHora
+    direction: desc
+
+- kind: Auditoria
+  properties:
+  - name: codigoApp
+  - name: fechaHora
+    direction: desc
+
+- kind: Auditoria
+  properties:
+  - name: msgId
+  - name: codigoApp
+  - name: fechaHora
+    direction: desc
+
