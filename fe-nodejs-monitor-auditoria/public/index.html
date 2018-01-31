@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Monitor Auditoria - Piloto</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"
+	/>
+	<link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+	<!-- Panel Filro -->
+	<div class="container">
+		<div class="row centered-form">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Par&aacute;metros de B&uacute;squeda</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selSociedad">Sociedad:</label>
+									<select class="form-control" id="selSociedad">
+										<option>Soc1</option>
+										<option>Soc2</option>
+										<option>Soc3</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selNegocio">Negocio:</label>
+									<select class="form-control" id="selNegocio">
+										<option>Neg1</option>
+										<option>Neg2</option>
+										<option>Neg3</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selCliente">Cliente:</label>
+									<select class="form-control" id="selCliente">
+										<option>Cli1</option>
+										<option>Cli2</option>
+										<option>Cli3</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selSubcli">Sub-Cliente:</label>
+									<select class="form-control" id="selSubcli">
+										<option>Subcli1</option>
+										<option>Subcli2</option>
+										<option>Subcli3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selProyecto">Proyecto:</label>
+									<select class="form-control" id="selProyecto">
+										<option>Proy1</option>
+										<option>Proy2</option>
+										<option>Proy3</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="form-group form-group-sm">
+									<label for="datFechaMin">Rango de Fechas:</label>
+									<div class="input-group input-daterange">
+										<input id="startDate1" name="startDate1" type="text" class="form-control" readonly="readonly">
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+										<span class="input-group-addon">a</span>
+										<input id="endDate1" name="endDate1" type="text" class="form-control" readonly="readonly">
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selTipoDoc">Tipo Documento:</label>
+									<select class="form-control" id="selTipoDoc">
+										<option>TipoDoc1</option>
+										<option>TipoDoc2</option>
+										<option>TipoDoc3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selEstDoc">Estado Documento:</label>
+									<select class="form-control" id="selEstDoc">
+										<option>EstDoc1</option>
+										<option>EstDoc2</option>
+										<option>EstDoc3</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="txtNomDoc">Nombre Documento:</label>
+									<input type="text" id="txtNomDoc" class="form-control" />
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selEsquema">Esquema:</label>
+									<select class="form-control" id="selEsquema">
+										<option>Esq1</option>
+										<option>Esq2</option>
+										<option>Esq3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selApp">Aplicación:</label>
+									<select class="form-control" id="selApp">
+										<option>App1</option>
+										<option>App2</option>
+										<option>App3</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+									<label for="selFlujo">Flujo:</label>
+									<select class="form-control" id="selFlujo">
+										<option>Flujo1</option>
+										<option>Flujo2</option>
+										<option>Flujo3</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- Botones -->
+						<div class="row">
+							<div class="col-xs-6">
+								<input type="submit" value="Buscar" id="btnBuscar" class="btn btn-success btn-block ">
+							</div>
+							<div class="col-xs-6">
+								<input type="submit" value="Limpiar" id="btnLimpiar" class="btn btn-danger btn-block ">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid ">
+
+			<div class="row ">
+				<table id="example " class="display " cellspacing="0 " width="100% ">
+					<thead>
+						<tr>
+							<th>MsgId</th>
+							<th>Sociedad</th>
+							<th>Flujo</th>
+							<th>Secuencia</th>
+							<th>CodigoApp</th>
+							<th>Evento</th>
+							<th>Tipo</th>
+							<th>Fecha</th>
+							<th>Key</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+
+		<!-- Modal Window-->
+		<!-- The Modal -->
+		<div id="myModal " class="modal ">
+
+			<!-- Modal content -->
+			<div class="modal-content ">
+				<span class="close ">&times;</span>
+				<p id="pData ">Some text in the Modal..</p>
+			</div>
+
+		</div>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
+		<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js "></script>
+		<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js "></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+		<script src="index.js " type="text/javascript "></script>
+
+</body>
+
+</html>
