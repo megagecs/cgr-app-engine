@@ -1,0 +1,17 @@
+indexes:
+
+- kind: Auditoria
+  properties:
+  - name: aplicacion
+  - name: cliente
+  - name: esquema
+  - name: estDocumento
+  - name: flujo
+  - name: negocio
+  - name: nomDocumento
+  - name: proyecto
+  - name: sociedad
+  - name: subCliente
+  - name: tipDocumento
+  - name: fecRegistro
+    direction: desc

@@ -1,0 +1,35 @@
+indexes:
+# pag principal
+- kind: Auditoria
+  properties:
+  - name: aplicacion
+  - name: cliente
+  - name: esquema
+  - name: estDocumento
+  - name: flujo
+  - name: negocio
+  - name: nomDocumento
+  - name: proyecto
+  - name: sociedad
+  - name: subCliente
+  - name: tipDocumento
+  - name: fecRegistro
+    direction: desc
+  - name: canal
+  - name: fecDocumento
+  - name: id
+
+# pag detalle
+- kind: Auditoria
+  properties:
+  - name: id
+  - name: fecRegistro
+    direction: desc
+  - name: descError
+  - name: docRelacionado
+  - name: estado
+  - name: evento
+  - name: fecDocumento
+  - name: flujo
+  - name: secuencia
+  
