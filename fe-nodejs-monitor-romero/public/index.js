@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('#example').DataTable( {
         columns: [
             {data:'msgId'},

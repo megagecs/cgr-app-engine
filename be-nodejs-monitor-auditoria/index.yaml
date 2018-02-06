@@ -13,6 +13,7 @@ indexes:
   - name: sociedad
   - name: subCliente
   - name: tipDocumento
+  - name: secuencia
   - name: fecRegistro
     direction: desc
   - name: canal

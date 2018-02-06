@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Monitor Auditoria - Piloto</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css"> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"/>
+	<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+	<!-- Panel Filro -->
+	<div class="container">
+		<div class="row centered-form">
+			<div class="col-md-12">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">Secuencia de Documento
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-5">
+								<div class="form-group form-group-sm">
+                                    <!-- <label for="id">Identificador:</label> -->
+                                    <h4><span class="label label-success">Identificador:</span></h4>
+                                    <label id="id" />
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="form-group form-group-sm">
+                                    <!-- <label for="nomDoc">Nombre Documento:</label> -->
+                                    <h4><span class="label label-success">Nombre Documento:</span></h4>
+                                    <label id="nomDoc" />
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group form-group-sm">
+                                    <!-- <label for="tipDoc">Tipo Documento:</label> -->
+                                    <h4><span class="label label-success">Tipo Documento:</span></h4>
+                                    <label id="tipDoc" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Panel Resultado -->
+	<div class="container-fluid">
+		<div class="row">
+			<table id="tablaDetalle" class="display" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>Secuencia</th>
+						<th>Evento</th>
+						<th>Documento<br>Relacionado</th>
+						<th>Trama<br>Req/Res</th>
+						<th>Estado</th>
+						<th>Descripci&oacute;n<br>Error</th>
+						<th>Fecha<br>Registro</th>
+						<th>Fecha<br>Documento</th>
+						<th>Flujo</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+
+	<!-- Modal Window-->
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<p id="pData">Some text in the Modal..</p>
+		</div>
+
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js "></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js "></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js "></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+	<script src="detalle.js" type="text/javascript"></script>
+
+</body>
+
+</html>

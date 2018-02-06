@@ -1,82 +1,133 @@
 $(document).ready(function() {
-    $('#example').DataTable( {
-        columns: [
-            {data:'msgId'},
-            {data:'sociedad'},
-            {data:'flujo'},
-            {data:'secuencia'},
-            {data:'codigoApp'},
-            {data:'evento'},
-            {data:'tipo'},
-            {data:'fechaHora'},
-            {data:'key',  "render": function (key, type, row) {
-                return '<a href="#" onclick="verData(' + key +');">Ver Data</a>';}
-            }
-        ],
+    
+    $('#tablaResult').DataTable( {
+      columns: [
+        {data:'id',  "render": function (id, type, row) {
+          return '<a href="#" onclick="irDetalle(&quot;'+id+'&quot;);">'+id+'</a>';}
+        },
+        {data: null, render: function (data, type, row ) {
+          return $('#selSubcli').find('option:selected').val();}
+        },
+        {data: null, render: function (data, type, row ) {
+          return $('#selTipoDoc').find('option:selected').val();}
+        },
+        {data: null, render: function (data, type, row ) {
+          return $('#txtNomDoc').val();}
+        },
+        {data: null, render: function (data, type, row ) {
+          return $('#selEstDoc').find('option:selected').val();}
+        },
+        {data:'fecRegistro'},
+        {data:'fecDocumento'},
+        {data:'key',  "render": function (key, type, row) {
+          return '<a href="#" onclick="verData(' + key +');">Data</a>';}
+        },
+        {data:'canal'}
+      ],
         paging:   true,
         ordering: true,
         info:     true,
         searching: false
     });
-    $('.input-daterange').datepicker({});
+
+    $('.input-daterange').datepicker({
+      format: 'yyyy-mm-dd',
+      changeYear: true
+    });
+
+    //setear fechas inicials
+    setDates();
+
 });
 
 $("#btnBuscar").click(function () 
 {
-    console.log('readData');
-    var dataIn = readData();
-    console.log('getData');
-    var dataRes = getData(dataIn);
-    console.log('setData');
-    setData(dataRes);
-    console.log('fin');
+  console.log('readParams');
+  let dataIn = readParams();
+  
+  console.log('JSON object request:');
+  console.log(dataIn);
+
+  console.log('getData');
+  let dataRes = getData(dataIn);
+
+  /* console.log('data a setear:');
+  console.log(dataRes); */
+  setData(dataRes);
+
+  console.log('fin');
 });
     
 
-function readData()
+function readParams()
 {
-  let vMsgId    = $('#txtMsgId').val();
-  let vFecMin   = $('#txtFechaIni').val();
-  let vFecMax   = $('#txtFechaFin').val();
-  let vCodApp   = $('#txtCodApp').val();
-  let dataIn;
+  let vSociedad   = $('#selSociedad').find('option:selected').val();
+  let vNegocio    = $('#selNegocio').find('option:selected').val();
+  let vCliente    = $('#selCliente').find('option:selected').val();
+  let vSubCli     = $('#selSubcli').find('option:selected').val();
+  let vProyecto   = $('#selProyecto').find('option:selected').val();
+  let vFecMin     = $('#startDate').val()+'T00:00:00';
+  let vFecMax     = $('#endDate').val()+'T23:59:59';
+  let vTipoDoc    = $('#selTipoDoc').find('option:selected').val();
+  let vEstDoc     = $('#selEstDoc').find('option:selected').val();
+  let vNomDoc     = $('#txtNomDoc').val();
+  let vEsquema    = $('#selEsquema').find('option:selected').val();
+  let vApp        = $('#selApp').find('option:selected').val();
+  let vFlujo      = $('#selFlujo').find('option:selected').val();
 
+  // log params
+  console.log('lectura de params:');
+  console.log('vSociedad: [' + vSociedad + ']');
+  console.log('vNegocio:  [' + vNegocio + ']');
+  console.log('vCliente:  [' + vCliente + ']');
+  console.log('vSubCli:   [' + vSubCli + ']');
+  console.log('vProyecto: [' + vProyecto + ']');
+  console.log('vTipoDoc:  [' + vTipoDoc + ']');
+  console.log('vEstDoc:   [' + vEstDoc + ']');
+  console.log('vNomDoc:   [' + vNomDoc + ']');
+  console.log('vEsquema:  [' + vEsquema + ']');
+  console.log('vApp:      [' + vApp + ']');
+  console.log('vFlujo:    [' + vFlujo + ']');
+  console.log('vFecMin:   [' + vFecMin + ']');
+  console.log('vFecMax:   [' + vFecMax + ']');
+
+  //validar fechas
   if ( (vFecMin == "") || (vFecMax == "") )
   {
     alert('completar campos fecha');
     return; 
   }
-  else
+
+  // build Obj param
+  let dataIn =
   {
-    dataIn =
-    {
-        msgId : vMsgId,
-        codApp: vCodApp,
-        fecMin: vFecMin,
-        fecMax: vFecMax
-    }  
-  }
+    sociedad: vSociedad,
+    negocio: vNegocio,
+    cliente: vCliente,
+    subCliente: vSubCli,
+    proyecto: vProyecto,
+    tipDocumento: vTipoDoc,
+    estDocumento: vEstDoc,
+    nomDocumento: vNomDoc,
+    esquema: vEsquema,
+    aplicacion: vApp,    
+    flujo: vFlujo,
+    fecMin: vFecMin,
+    fecMax: vFecMax
+  };
 
-  console.log('lectura de params:');
-  console.log('msgId: [' + vMsgId + ']');
-  console.log('fecMin: [' + vFecMin + ']');
-  console.log('fecMax: [' + vFecMax + ']');
-  console.log('codApp: [' + vCodApp + ']');
-
-  console.log('JSON request:');
-  console.log(JSON.stringify(dataIn));
-
+  /*
   clean(dataIn);
   console.log('JSON request (clean):');
-  console.log(JSON.stringify(dataIn));
+  console.log(JSON.stringify(dataIn)); */
 
   return dataIn;
 }
 
 function getData(dataIn)
 {
-  var arrData = [];
-  var i = 0;
+  let arrData = [];
+  let i = 0;
 
    // Call API LOCAL
   $.ajax({
@@ -85,45 +136,32 @@ function getData(dataIn)
     data: dataIn,
     async: false,
     success: function (data) {
-      console.log('total_regs (return): ' + data.body.monitoreo.total_regs);
-      $.each(data.body.monitoreo.regs, function(i, item) {
-        arrData.push(item);
-      });
+      arrData = data.body.monitoreo.regs;
     },
     error: function (jqXHR, textStatus, err) {
       console.log('error: ' + JSON.stringify(jqXHR));
     },
   });
-  console.log('arrData (length):' + arrData.length);
-  console.log('index   (i):' + i);
   return arrData;
 }
 
 function setData(jsonData)
 {
-    var datatable = $('#example').DataTable();
+    let datatable = $('#tablaResult').DataTable();
     datatable
         .clear()
         .rows.add(jsonData)
         .draw();
 }
 
-function clean(obj) {
-    for (var propName in obj) { 
-      if (obj[propName] === null || obj[propName] === undefined || obj[propName] == '') {
-        delete obj[propName];
-      }
-    }
-  }
-
+// Mostrar 'data' (modal)
 function verData(key)
 {
-    //alert(key);
 
-    var modal = document.getElementById('myModal');
+    let modal = document.getElementById('myModal');
     modal.style.display = "block";
 
-    var span = document.getElementsByClassName("close")[0];
+    let span = document.getElementsByClassName("close")[0];
   
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
@@ -144,6 +182,8 @@ function verData(key)
         data: {"key" : parseInt(key)},
         async: false,
         success: function (result) {
+            /*console.log('buscarxkey result:');
+            console.log(JSON.stringify(result)); */
             let parser = JSON.parse(result.body);
             $('#pData').text(parser.monitoreo.data);
         },
@@ -151,5 +191,56 @@ function verData(key)
           console.log('error: ' + JSON.stringify(jqXHR));
         },
       });
+}
 
+// Ir a pagina 'detalle'
+function irDetalle(id)
+{
+  console.log('---metodo irDetalle---');
+  window.location = `detalle.html?id=${id}&nomDoc=${$('#txtNomDoc').val()}&tipDoc=${$('#selTipoDoc').find('option:selected').val()}`;
+}
+
+/* 
+  - fecIni: AAAA-MM-DD
+  - OUT: AAAA-MM-DDT00:00:00
+*/
+function transFechaIni(fecIni)
+{
+    let fecha = fecIni.toISOString();
+    console.log('fecIni:' + fecha);
+    let anio = parseInt(fecIni.substring(0,4));
+    let mes  = parseInt(fecIni.substring(5,7)) - 1;
+    let dia  = parseInt(fecIni.substring(8,10));
+
+    return new Date(anio,mes,dia,0,0,0);
+}
+
+/* 
+  - fecFin: AAAA-MM-DD
+  - OUT: AAAA-MM-DDT23:59:59
+*/
+function transFechaFin(fecFin)
+{
+    let anio = parseInt(fecFin.substring(0,4));
+    let mes  = parseInt(fecFin.substring(5,7)) - 1;
+    let dia  = parseInt(fecFin.substring(8,10));
+
+    return new Date(anio,mes,dia,23,59,59);
+}
+
+function setDates()
+{
+
+  // get values and create Date objects
+  /* let today = new Date(2016,1,1);
+  let tomorrow = new Date(2016,1,1); */
+  let today = new Date();
+  let tomorrow = new Date(today.getTime() + 1 * 86400000 );
+  let sToday = today.toISOString();
+  let sTomorrow = tomorrow.toISOString(); 
+
+  // set the values
+  $('#startDate').val(sToday.substring(0,10));
+  $('#endDate').val(sTomorrow.substring(0,10));
+  
 }

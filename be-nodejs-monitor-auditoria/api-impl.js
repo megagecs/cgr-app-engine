@@ -41,8 +41,8 @@ router.post('/registrar', (req, res, next) => {
             tipDocumento:   req.body.tipDocumento,
             nomDocumento:   req.body.nomDocumento,
             estDocumento:   req.body.estDocumento,
-            fecDocumento:   req.body.fecDocumento,
-            fecRegistro:    req.body.fecRegistro,
+            fecDocumento:   fechaStrToDate(req.body.fecDocumento),
+            fecRegistro:    fechaStrToDate(req.body.fecRegistro),
             trama:          req.body.trama,
             canal:          req.body.canal,
             sociedad:       req.body.sociedad,
@@ -65,7 +65,6 @@ router.post('/registrar', (req, res, next) => {
         .save(auditoria)
         .then(() => {
             // resp OK
-            console.log('then');
             return res.status(200).jsonp({
                 "monitoreo":
                 {
@@ -189,6 +188,7 @@ router.post('/listar', (req, res, next) => {
         .filter('fecRegistro',  '<=', fechaStrToDate(pFecMax));
     }
 
+    query.filter('secuencia', "=", '001');
     query.order('fecRegistro', {descending: true});
     
     console.log('---FIN filtros aplicados');
