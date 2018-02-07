@@ -34,6 +34,9 @@ router.post('/registrar', (req, res, next) => {
     //          fechaHora: fechaStrToDate(req.body.fechaHora),
     const auditoria = {
         key: pKey,
+        excludeFromIndexes: [
+            'trama'
+        ],
         data:
         {
             id:             req.body.id,

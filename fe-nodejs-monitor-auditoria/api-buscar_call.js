@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var request = require('request');
+const express = require('express');
+const router = express.Router();
+const request = require('request');
+const fs  = require('fs');
 
 router.post('/api/buscar', function (req, res) {
     console.log('entro api FE local - buscar:' + new Date().toISOString());
@@ -45,13 +46,40 @@ router.post('/api/buscarxid', function (req, res) {
     });
 });
 
-/* router.post('/irDetalle', function (req, res) {
-    console.log('redireccion a Detale');
-    let parms = 'id=' + req.body.id +
-                 '&nomDoc=' + req.body.nomDocumento +
-                 '&tipDoc=' + req.body.tipDocumento;
-    let urlDet = encodeURIComponent(parms);
-    res.redirect('detalle.html?' + urlDet);
-}); */
+router.post('/api/registrarxfile', function (req, res) {
+    console.log('entro api02 FE local - registrarxfile:' + new Date().toISOString());
+    let jsonFile = JSON.parse(fs.readFileSync('data_prueba.json', 'utf8'));
+    let numInsertados = 0;
+
+    jsonFile.forEach(function(item) {
+
+        let options = {
+            url:'http://localhost:8080/monitoreo/registrar/',
+            method:'POST',
+            json:item
+          };
+
+        request(options, function (error, response, body) {
+            if (body.monitoreo.codigo === 0)
+            {
+                console.log('entro if');
+                numInsertados++;
+                console.log('numInsetados:'+numInsertados);
+            }
+            console.log('fin req');
+        });
+        console.log('numInsetados2:'+numInsertados);
+    });
+
+    console.log('fin');
+    console.log(numInsertados);
+
+    return res.status(200).jsonp(
+        {
+            "totalObjs":jsonFile.length
+        }
+    );
+
+});
 
 module.exports = router;

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "bot-tramarsa",
+  "private_key_id": "edd2eae61e25072ece283e35a010f3789c052479",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCkKDI7tqTlcW/B\n466M00VApnc7UqY67ASauKD4SlX95YO1UmsmGLFsfemOH92ZBcpvONt8dFMiEfVT\nUMtakvuGkeAw+gVui8OFATN2f96TlQIaHMSumvhiI/nVEWjBZclM8Ga0cxBRTtHq\nNGrA81hcvnxmUsFkeoDTPjJbNQ1ouBbvzaeDEw1MA/JbD9T5jfGJz8Sda7DTrnZA\njAE3rm/Z5qM1iXGPn4jeQt2286hviplHyEx6Exv9QO1atBa+cF/bUez4VaYA5DvE\nQIk4Zc00F7RFjydO+tICJb5V8Jd57fpI+1YOzYPcKyaYggNlj0RWrfJCyHZ2IdAi\nz9E/wU3NAgMBAAECggEABUgjJaILeDPILBg5UN/+BcXVZvE9K/7VacJbBjd4wNdA\n/5/hQV6LXDmePtZuTjLOKqSiW0TFj/5n7asB1VjkAuvFUjjD3U9d68pNb5ikVAyi\nqVhs86Pvg1OJAaldEivw6CrWrc5Yo2UX1/ihHrLgZaDeESTEgt52MAB7pPegsNJ+\nUuCjxo9yEE5TXuJrV/zIFOqhE5CKGEHat447qFxFv6z//4Iz0EYJOlmIkITjiEmc\nmrsZdjngw8TLWh0UKWDwKewrHEML1Gc1dQgphLwckyCrLXclY1yTW+YMXMqVHvO6\nWPB8wcjLUErNVpTCzW+1qM6dsJ/mk2oh9rT3du0t+QKBgQDSSZyxPl6O2HQxkXWd\nXMpMJ4GbcYMwT10d/CXAToYqvDhZ9IOExhbt2UDAoKNATWMwz7UNnCVE4PffcasW\niQH87QKEUdigVa7OuoCI45Pnya86JX5m/86yRMuk0kqkjLWV5c8A8T9BuwUil9pL\ncKJ60vZhYO4hUKbbRPSzjH1OkwKBgQDH13H0gQQPHSfe6Ryod+xZLdqBIA6qBWqj\n7tDcUQGmfO6rcsY61SAtjCjaEOB3Xk/t+LfYe+o9YBUJ1Y7qixbzS/5Y+jzo7Cev\nDXA2cw3Koyew+8RTOiIpjmZzfm8/OYVJB/AnMR2fzV2p1YEbKPxGVfRzRV9oP9w8\nZJUBOUxOHwKBgQCk87lGD3Z89q2udDueRLsrIZI5LMGLk7WnX7L9Nptnyl0psvO3\nous5h8GTWG62cf3svAF5u5JAhXfqfm+GLdKxY/klck5K9us4nnNU7a+Hkl0xb1fH\n08F/dReJIqwKh5WpD6thQdws41cT26oQoznQvssld7NTzsAUH/MTJJDmoQKBgEIF\nMBV5pfCkTi67TodtjvxrRJuSDqYmwfNEi2WtsWDiNysW8Nww2r+RZVGdb7qfwsI4\nf+waC+mY23pzPhLIPp3EBlQ433SHyBhx1Rd37R97xToYAuUH+I9IBxqys2fsxda5\ns6IO/N11SDM6YLurT6Sg8vA+A+X56vVcuUk9N7M7AoGBALqX1Z4zwHCiMcqRX04E\nJV+MuWqsrGnxKH/32/tR+9do6dC36J34MbBbtO11cSlxWxfklc8W0rQz6LXnGPZs\nzTgfiIiAP8XMgGBJWJdEKoe3svLR5jOb+6PdlwRsvFfkns6ufAl2qrQzL+SUK9Cr\nbdy46Vo/Lmq8WUFn5vM7Tgze\n-----END PRIVATE KEY-----\n",
+  "client_email": "dataostore-test@bot-tramarsa.iam.gserviceaccount.com",
+  "client_id": "106073818609157055051",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dataostore-test%40bot-tramarsa.iam.gserviceaccount.com"
+}

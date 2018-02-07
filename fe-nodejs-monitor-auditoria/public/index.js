@@ -30,32 +30,27 @@ $(document).ready(function() {
         searching: false
     });
 
-    $('.input-daterange').datepicker({
-      format: 'yyyy-mm-dd',
-      changeYear: true
-    });
+    // comp calendar
+    configCalendars();
 
     //setear fechas inicials
-    setDates();
+    //setDates();
 
 });
 
 $("#btnBuscar").click(function () 
 {
-  console.log('readParams');
+  console.log('***readParams***');
   let dataIn = readParams();
   
   console.log('JSON object request:');
   console.log(dataIn);
 
-  console.log('getData');
+  console.log('***getData***');
   let dataRes = getData(dataIn);
 
-  /* console.log('data a setear:');
-  console.log(dataRes); */
   setData(dataRes);
-
-  console.log('fin');
+  console.log('***fin***');
 });
     
 
@@ -66,8 +61,8 @@ function readParams()
   let vCliente    = $('#selCliente').find('option:selected').val();
   let vSubCli     = $('#selSubcli').find('option:selected').val();
   let vProyecto   = $('#selProyecto').find('option:selected').val();
-  let vFecMin     = $('#startDate').val()+'T00:00:00';
-  let vFecMax     = $('#endDate').val()+'T23:59:59';
+  let vFecMin     = $('#startDate').val();
+  let vFecMax     = $('#endDate').val();
   let vTipoDoc    = $('#selTipoDoc').find('option:selected').val();
   let vEstDoc     = $('#selEstDoc').find('option:selected').val();
   let vNomDoc     = $('#txtNomDoc').val();
@@ -92,7 +87,7 @@ function readParams()
   console.log('vFecMax:   [' + vFecMax + ']');
 
   //validar fechas
-  if ( (vFecMin == "") || (vFecMax == "") )
+  if ( (vFecMin === "") || (vFecMax === "") )
   {
     alert('completar campos fecha');
     return; 
@@ -112,14 +107,11 @@ function readParams()
     esquema: vEsquema,
     aplicacion: vApp,    
     flujo: vFlujo,
-    fecMin: vFecMin,
-    fecMax: vFecMax
+    fecMin: transFecha(vFecMin),
+    fecMax: transFecha(vFecMax)
   };
 
-  /*
   clean(dataIn);
-  console.log('JSON request (clean):');
-  console.log(JSON.stringify(dataIn)); */
 
   return dataIn;
 }
@@ -201,46 +193,49 @@ function irDetalle(id)
 }
 
 /* 
-  - fecIni: AAAA-MM-DD
-  - OUT: AAAA-MM-DDT00:00:00
+  - IN: fecStr - DD/MM/AAAA hh:mm:ss
+  - OUT: AAAA-MM-DDThh:mm:ss
 */
-function transFechaIni(fecIni)
+function transFecha(fecStr)
 {
-    let fecha = fecIni.toISOString();
-    console.log('fecIni:' + fecha);
-    let anio = parseInt(fecIni.substring(0,4));
-    let mes  = parseInt(fecIni.substring(5,7)) - 1;
-    let dia  = parseInt(fecIni.substring(8,10));
-
-    return new Date(anio,mes,dia,0,0,0);
+    let anio = fecStr.substring(6,10);
+    let mes  = fecStr.substring(3,5);
+    let dia  = fecStr.substring(0,2);
+    let hor  = fecStr.substring(11,13);
+    let min  = fecStr.substring(14,16);
+    let sec  = fecStr.substring(17);
+    let ret  = anio + '-' + mes + '-' + dia + 'T' + hor + ':' + min + ':' + sec;
+    return ret;
 }
 
-/* 
-  - fecFin: AAAA-MM-DD
-  - OUT: AAAA-MM-DDT23:59:59
-*/
-function transFechaFin(fecFin)
+function configCalendars()
 {
-    let anio = parseInt(fecFin.substring(0,4));
-    let mes  = parseInt(fecFin.substring(5,7)) - 1;
-    let dia  = parseInt(fecFin.substring(8,10));
-
-    return new Date(anio,mes,dia,23,59,59);
-}
-
-function setDates()
-{
-
-  // get values and create Date objects
-  /* let today = new Date(2016,1,1);
-  let tomorrow = new Date(2016,1,1); */
-  let today = new Date();
-  let tomorrow = new Date(today.getTime() + 1 * 86400000 );
-  let sToday = today.toISOString();
-  let sTomorrow = tomorrow.toISOString(); 
-
-  // set the values
-  $('#startDate').val(sToday.substring(0,10));
-  $('#endDate').val(sTomorrow.substring(0,10));
+  // attribs
+  $('#dtpIni').datetimepicker({
+    defaultDate: new Date(),
+    format: 'DD/MM/YYYY HH:mm:ss',
+    ignoreReadonly: true
+  });
   
+  $('#dtpFin').datetimepicker({
+    format: 'DD/MM/YYYY HH:mm:ss',
+    ignoreReadonly: true,
+    useCurrent: false //Important! See issue #1075
+  });
+
+  // validation
+  $("#dtpIni").on("dp.change", function (e) {
+      $('#dtpFin').data("DateTimePicker").minDate(e.date);
+  });
+  $("#dtpFin").on("dp.change", function (e) {
+      $('#dtpIni').data("DateTimePicker").maxDate(e.date);
+  });
+}
+
+function clean(obj) {
+  for (var propName in obj) { 
+    if (obj[propName] === null || obj[propName] === undefined || obj[propName] == '') {
+      delete obj[propName];
+    }
+  }
 }
