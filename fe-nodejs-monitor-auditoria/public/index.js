@@ -36,6 +36,25 @@ $(document).ready(function() {
 
 });
 
+// Click "btnLimpiar"
+$("#btnLimpiar").click(function () 
+{
+  $('#selSociedad :nth-child(1)').prop('selected', true);// To select via index
+  $('#selNegocio :nth-child(1)').prop('selected', true);
+  $('#selCliente :nth-child(1)').prop('selected', true);
+  $('#selSubcli :nth-child(1)').prop('selected', true);
+  $('#selProyecto :nth-child(1)').prop('selected', true);
+  //$('#startDate').val('05/02/2018 10:00:00');
+  //$('#endDate').val('08/02/2018 19:40:20');
+  $('#selTipoDoc :nth-child(1)').prop('selected', true);
+  $('#selEstDoc :nth-child(1)').prop('selected', true);
+  $('#txtNomDoc').val('');
+  $('#selEsquema :nth-child(1)').prop('selected', true);
+  $('#selApp :nth-child(1)').prop('selected', true);
+  $('#selFlujo :nth-child(1)').prop('selected', true);
+});
+
+// Click "btnBuscar"
 $("#btnBuscar").click(function () 
 {
   console.log('***readParams***');

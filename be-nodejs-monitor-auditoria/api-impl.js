@@ -120,9 +120,9 @@ router.post('/listar', (req, res, next) => {
     console.log('tipFiltro:' + pTipFiltro);
 
     // selección de datos
-    if (+pTipFiltro === 0) {//se envian todos los parametros de filtro / resultado
+    if (+pTipFiltro === 0) {//se envian todos los parametros de filtro / select
         query.select(['id','fecRegistro','fecDocumento','canal']);
-    } else if (+pTipFiltro === 1 ) { //NO se envia ningún parametro filtro / resultado
+    } else if (+pTipFiltro === 1 ) { //NO se envia ningún parametro filtro / select
         query.select(['id', 'subCliente', 'tipDocumento', 'nomDocumento', 'estDocumento', 'fecRegistro','fecDocumento','canal']);
     } else {
         return res.status(200).jsonp({
