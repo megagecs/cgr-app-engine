@@ -32,6 +32,8 @@ router.post('/registrar', (req, res, next) => {
 
     // Prepares the new entity
     //          fechaHora: fechaStrToDate(req.body.fechaHora),
+    //          fechaStrToDate(req.body.fecDocumento)
+    // fechaStrToDate(req.body.fecRegistro),
     const auditoria = {
         key: pKey,
         excludeFromIndexes: [
@@ -63,7 +65,6 @@ router.post('/registrar', (req, res, next) => {
         }
     };
 
-    // Saves the entity
     datastore
         .save(auditoria)
         .then(() => {
@@ -95,10 +96,10 @@ router.post('/listar', (req, res, next) => {
 
     console.log('metodo POST /listar');
 
-    const query = 
-        datastore
-            .createQuery('Auditoria')
-            .select(['id','fecRegistro','fecDocumento','canal']);
+    const query = datastore.createQuery('Auditoria'); 
+        //datastore
+            //.createQuery('Auditoria')
+            //.select(['id','fecRegistro','fecDocumento','canal']);
 
     // Read params
     let pSociedad = req.body.sociedad;
@@ -114,6 +115,25 @@ router.post('/listar', (req, res, next) => {
     let pFlujo    = req.body.flujo;
     let pFecMin   = req.body.fecMin;
     let pFecMax   = req.body.fecMax;
+    let pTipFiltro = req.body.tipFiltro;
+
+    console.log('tipFiltro:' + pTipFiltro);
+
+    // selección de datos
+    if (+pTipFiltro === 0) {//se envian todos los parametros de filtro / resultado
+        query.select(['id','fecRegistro','fecDocumento','canal']);
+    } else if (+pTipFiltro === 1 ) { //NO se envia ningún parametro filtro / resultado
+        query.select(['id', 'subCliente', 'tipDocumento', 'nomDocumento', 'estDocumento', 'fecRegistro','fecDocumento','canal']);
+    } else {
+        return res.status(200).jsonp({
+            "monitoreo":
+            {
+                "codigo" : 1,
+                "descripcion" : "error en la ejecucion",
+                "errorMessage" : "especificar el tipoFiltro correcto"
+            }
+        });
+    }
 
     console.log('filtros aplicados:');
 
@@ -330,12 +350,28 @@ module.exports = router;
 // fecStr --> AAAA-MM-DDTHH:mm:ss
 function fechaStrToDate(fecStr)
 {
-    let anio = parseInt(fecStr.substring(0,4));
-    let mes  = parseInt(fecStr.substring(5,7)) - 1;
-    let dia  = parseInt(fecStr.substring(8,10));
-    let hora = parseInt(fecStr.substring(11,13));
-    let min  = parseInt(fecStr.substring(14,16));
-    let sec  = parseInt(fecStr.substring(17));
+    let ret;
+    if (fecStr === 'now')
+    {
+        ret = new Date();
+    }
+    else
+    {
+        let anio = parseInt(fecStr.substring(0,4));
+        let mes  = parseInt(fecStr.substring(5,7)) - 1;
+        let dia  = parseInt(fecStr.substring(8,10));
+        let hor = parseInt(fecStr.substring(11,13));
+        let min  = parseInt(fecStr.substring(14,16));
+        let sec  = parseInt(fecStr.substring(17));
+        ret = new Date(anio,mes,dia,hor,min,sec);
+    }
 
-    return new Date(anio,mes,dia,hora,min,sec);
+    return ret;
+}
+
+// fecStr --> AAAA-MM-DDTHH:mm:ss
+function fechaStrToDatastore(fecStr)
+{
+    let ret = fecStr + '.000Z';
+    return ret;
 }

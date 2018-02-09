@@ -1,5 +1,5 @@
 indexes:
-# pag principal
+# pag principal (filtro "todos" los campos)
 - kind: Auditoria
   properties:
   - name: aplicacion
@@ -20,6 +20,36 @@ indexes:
   - name: fecDocumento
   - name: id
 
+# pag principal: filtro fecha
+- kind: Auditoria
+  properties:
+  - name: secuencia
+  - name: fecRegistro
+    direction: desc
+  - name: canal
+  - name: estDocumento
+  - name: fecDocumento
+  - name: id
+  - name: nomDocumento
+  - name: subCliente
+  - name: tipDocumento
+
+# pag principal: filtro fecha/aplicacion
+- kind: Auditoria
+  properties:
+  - name: aplicacion
+  - name: fecRegistro
+    direction: desc
+  - name: canal
+  - name: estDocumento
+  - name: fecDocumento
+  - name: id
+  - name: nomDocumento
+  - name: subCliente
+  - name: tipDocumento
+
+
+
 # pag detalle
 - kind: Auditoria
   properties:
@@ -33,4 +63,3 @@ indexes:
   - name: fecDocumento
   - name: flujo
   - name: secuencia
-  

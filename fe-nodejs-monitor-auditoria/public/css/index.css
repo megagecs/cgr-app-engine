@@ -35,3 +35,20 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+/* CSS used here will be applied after bootstrap.css */
+
+/* .panel-heading-sm{
+    height: 5px;
+    padding: 4px 10px;
+} */
+
+/* ul.pagination li.active */
+/* .pagination>.active>a, 
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover
+{
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+} */
