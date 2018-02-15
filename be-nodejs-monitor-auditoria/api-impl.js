@@ -227,7 +227,7 @@ router.post('/listar', (req, res, next) => {
         arrRegs.forEach((reg) => {
             key = reg[datastore.KEY];
             reg.key = key.id;
-            reg.fecRegistro = new Date(reg.fecRegistro);
+            //reg.fecRegistro = new Date(reg.fecRegistro);
         });
 
         // resp OK

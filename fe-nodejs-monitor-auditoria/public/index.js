@@ -2,15 +2,19 @@ $(document).ready(function() {
     
     $('#tablaResult').DataTable( {
       columns: [
-        {data:'id',  "render": function (id, type, row) {
+        {data:'id',  sClass:"firstCol", "render": function (id, type, row) {
           return '<a href="#" onclick="irDetalle(&quot;'+id+'&quot;);">'+id+'</a>';}
         },
         {data:'subCliente'},
         {data:'tipDocumento'},
         {data:'nomDocumento'},
         {data:'estDocumento'},
-        {data:'fecRegistro'},
-        {data:'fecDocumento'},
+        {data:'fecRegistro',  "render": function (fecRegistro, type, row) {
+          return formatFechaBackEnd(fecRegistro, 'DD.MM.YY hh:mm:ss a');}
+        },
+        {data:'fecDocumento',  "render": function (fecDocumento, type, row) {
+          return formatFechaBackEnd(fecDocumento, 'DD.MM.YY');}
+        },
         {data:'key',  "render": function (key, type, row) {
           return '<a href="#" onclick="verData(' + key +');">Data</a>';}
         },
@@ -28,10 +32,13 @@ $(document).ready(function() {
     // comp toastr
     configToastr();
 
-    //setear fechas inicials
+    // setear fechas inicials
     //setDates();
 
-    //Para testing
+    // cargar data de componentes
+    loadDataComps();
+
+    // para testing (eliminar)
     testSetIniValues();
 
 });
@@ -89,10 +96,10 @@ $("#btnBuscar").click(function ()
           arrData.forEach(element => {
             dateTmp = new Date(element.fecRegistro);
             dateTmp2 = new Date(element.fecDocumento);
-            console.log(`fecReg: ${element.fecRegistro}`);
+            /* console.log(`fecReg: ${element.fecRegistro}`);
             console.log(`fecReg trans: ${dateTmp}`);
             console.log(`fecDoc: ${element.fecDocumento}`);
-            console.log(`fecDoc trns: ${dateTmp2}`);
+            console.log(`fecDoc trns: ${dateTmp2}`); */
           });
           // pintar data
           setData(arrData);
@@ -199,6 +206,8 @@ function getData(dataIn)
     async: false,
     success: function (data) {
       arrData = data;
+      console.log('data respuesta:');
+      console.log(arrData);
     },
     error: function (jqXHR, textStatus, err) {
       console.log('error: ' + JSON.stringify(jqXHR));
@@ -373,4 +382,116 @@ function testSetIniValues()
   $('#selApp :nth-child(2)').prop('selected', true);
   $('#selFlujo :nth-child(2)').prop('selected', true);
   
+}
+
+function loadDataComps()
+{
+  // combo 'selSociedad'
+  let data =
+  [
+    {"value":"SOC01", "text":"SOC01"},
+    {"value":"SOC02", "text":"SOC02"},
+    {"value":"SOC03", "text":"SOC03"}
+  ];
+  addOptions($('#selSociedad'), data);
+
+  // combo 'selNegocio'
+  data =
+  [
+    {"value":"NEG01", "text":"NEG01"},
+    {"value":"NEG02", "text":"NEG02"},
+    {"value":"NEG03", "text":"NEG03"}
+  ];
+  addOptions($('#selNegocio'), data);
+
+  // combo 'selCliente'
+  data =
+  [
+    {"value":"CLI01", "text":"CLI01"},
+    {"value":"CLI02", "text":"CLI02"},
+    {"value":"CLI03", "text":"CLI03"}
+  ];
+  addOptions($('#selCliente'), data);
+
+  // combo 'selSubcli'
+  data =
+  [
+    {"value":"1101", "text":"1101"},
+    {"value":"1102", "text":"1102"},
+    {"value":"1103", "text":"1103"}
+  ];
+  addOptions($('#selSubcli'), data);
+
+  // combo 'selProyecto'
+  data =
+  [
+    {"value":"PROY01", "text":"PROY01"},
+    {"value":"PROY02", "text":"PROY02"},
+    {"value":"PROY03", "text":"PROY03"}
+  ];
+  addOptions($('#selProyecto'), data);
+
+  // combo 'selTipoDoc'
+  data =
+  [
+    {"value":"Traslados", "text":"Traslados"},
+    {"value":"TrasladosB", "text":"TrasladosB"},
+    {"value":"TrasladosC", "text":"TrasladosC"}
+  ];
+  addOptions($('#selTipoDoc'), data);
+
+  // combo 'selEstDoc'
+  data =
+  [
+    {"value":"Correcto", "text":"Correcto"},
+    {"value":"Incorrecto", "text":"Incorrecto"}
+  ];
+  addOptions($('#selEstDoc'), data);
+
+   // combo 'selEsquema'
+   data =
+   [
+     {"value":"ESQ01", "text":"ESQ01"},
+     {"value":"ESQ02", "text":"ESQ02"},
+     {"value":"ESQ03", "text":"ESQ03"}
+   ];
+   addOptions($('#selEsquema'), data);
+
+  // combo 'selApp'
+  data =
+  [
+    {"value":"APP01", "text":"APP01"},
+    {"value":"APP02", "text":"APP02"},
+    {"value":"APP03", "text":"APP03"}
+  ];
+  addOptions($('#selApp'), data);
+
+  // combo 'selFlujo'
+  data =
+  [
+    {"value":"FLU01", "text":"FLU01"},
+    {"value":"FLU02", "text":"FLU02"},
+    {"value":"FLU03", "text":"FLU03"},
+    {"value":"MF_MB_MININT_DESPACHO_ALMACEN_REQ.msgflow", "text":"MF_MB_MININT_DESPACHO_ALMACEN_REQ.msgflow"}    
+  ];
+  addOptions($('#selFlujo'), data);
+ 
+}
+
+function addOptions(comp, items)
+{
+  comp.append('<option value="">-Todos-</option>');
+  $.each(items, function (i, item) {
+    comp.append($('<option>', { 
+        value: item.value,
+        text : item.text 
+    }));
+  });
+}
+
+function formatFechaBackEnd(dateMil, format)
+{
+  let fecSub = dateMil.toString().substring(0,13);
+  let fec    = new Date(+fecSub);
+  return moment(fec).format(format);
 }

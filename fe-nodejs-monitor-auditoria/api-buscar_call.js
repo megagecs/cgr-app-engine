@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
-
+const apiServer = 'http://localhost:8081/monitoreo';
 
 router.post('/api/buscar', function (req, res) {
     console.log('entro api FE local - buscar:' + new Date().toISOString());
     var options = {
         json: req.body,
-        url:'http://localhost:8080/monitoreo/listar',
+        url:`${apiServer}/listar`,
+        //url:'http://localhost:8081/monitoreo/listar',
         method:'POST'
       };
 
@@ -21,7 +22,7 @@ router.post('/api/buscar', function (req, res) {
 router.post('/api/buscarxkey', function (req, res) {
     console.log('entro api02 FE local - buscarxkey:' + new Date().toISOString());
     var options = {
-        url:'http://localhost:8080/monitoreo/listarByKey/' + req.body.key,
+        url: `${apiServer}/listarByKey/${req.body.key}`,
         method:'GET'
       };
 
@@ -35,7 +36,7 @@ router.post('/api/buscarxkey', function (req, res) {
 router.post('/api/buscarxid', function (req, res) {
     console.log('entro api02 FE local - buscarxid:' + new Date().toISOString());
     var options = {
-        url:'http://localhost:8080/monitoreo/listar/' + req.body.id,
+        url: `${apiServer}/listar/${req.body.id}`,
         method:'GET'
       };
 

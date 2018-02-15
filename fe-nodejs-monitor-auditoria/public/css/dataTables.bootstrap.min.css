@@ -61,10 +61,10 @@ div.dataTables_wrapper div.dataTables_paginate {
     text-align: right
 }
 
-div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+/* div.dataTables_wrapper div.dataTables_paginate ul.pagination{
     margin: 2px 0;
     white-space: nowrap
-}
+} */
 
 div.dataTables_wrapper div.dataTables_processing {
     position: absolute;
@@ -220,11 +220,26 @@ div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:last-chil
 
 /**********/
 
-table.dataTable tr.even {
-    background-color: #f2f2f2;
+table.dataTable tr.odd {
+    background-color: #e8edff;
 }
 
-table.dataTable tr:hover 
-{
-    background-color: #ddd;
+table.dataTable tr:hover {
+    background-color: #d0dafd;
+}
+
+table.dataTable td {
+    text-align: center;
+}
+
+table.dataTable td.firstCol {
+    text-align: left;
+}
+
+#tablaResult_paginate>span>a {
+    cursor: pointer;
+}
+
+#tablaResult_paginate>a.disabled {
+    cursor: not-allowed;
 }
