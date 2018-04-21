@@ -1,0 +1,54 @@
+# [START swagger]
+swagger: "2.0"
+info:
+  description: "A simple Google Cloud Endpoints API example."
+  title: "Endpoints Example"
+  version: "1.0.0"
+host: "test-dot-pruebas-generales-excellia.appspot.com"
+# [END swagger]
+basePath: "/"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+schemes:
+- "https"
+paths:
+  "/api/helloworld":
+    post:
+      description: "Devuelve mensaje de prueba."
+      operationId: "echo"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Respuesta Exito"
+          schema:
+            $ref: "#/definitions/defRespuesta"
+
+definitions:
+  defRespuesta:
+    properties:
+        respuesta:
+          type: array
+          items:
+            $ref: "#/definitions/defOutMessage"
+  defOutMessage:
+      properties:
+        codigo:
+          type: "string"
+        descripcion:
+          type: "string"
+        mensaje:
+          type: "string"
+
+# This section requires all requests to any path to require an API key.
+security:
+- api_key: []
+securityDefinitions:
+  # This section configures basic authentication with an API key.
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+  
